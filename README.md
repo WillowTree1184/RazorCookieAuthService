@@ -76,6 +76,7 @@ Set attribute to your page which you want users can't browse without authenticat
 Inject `IAuthService`
 
 ``` c sharp
+//In your page
 @inject IAuthService authService
 ```
 
