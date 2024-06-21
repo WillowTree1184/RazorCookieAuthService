@@ -1,7 +1,7 @@
 # RazorCookieAuthService
 A namespace to login, logout and get token in razor.
 
-## How to use?
+## How to configure?
 First of all, add Nuget package `Microsoft.AspNetCore.Authorization` into your project.
 
 Next, we should to add these service to DI Containers, initialize the Checksum service and configure the AuthController:
@@ -72,3 +72,14 @@ Set attribute to your page which you want users can't browse without authenticat
 @attribute [Authorize]
 ```
 
+## How to use?
+Inject `IAuthService`
+
+``` c sharp
+@inject IAuthService authService
+```
+
+Functions in interface `IAuthService`:
+- `Task LoginAsync(string token)`: Login with the token. You can also serialize your structs or classes to JSON as token. The token will be written in the cookie.
+- `Task LogoutAsync()`: Logout. The cookie will be deleted.
+- `Task<string> GetTokenAsync()`: Get token if you already loggin. Or you can use `(await authenticationStateProvider.GetAuthenticationStateAsync()).User.FindFirst(c => c.Type == "token").Value;`.
