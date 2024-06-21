@@ -2,7 +2,7 @@
 A namespace to login, logout and get token in razor.
 
 ## How to use?
-Fiest of all, we should to add these service to DI Containers and initialize the Checksum service and configue the AuthController.
+Fiest of all, we should to add these service to DI Containers, initialize the Checksum service and configure the AuthController.
 
 ``` c sharp
 //In Program.cs
@@ -16,6 +16,12 @@ builder.Services.AddScoped<AuthController>();
 int checksumUpdateInterval = 60000;
 Checksum.Initialize(checksumUpdateInterval);
 
-//Comfigue the AuthController
+//Configure the AuthController
 AuthController.loginPageURL = "/login";
 ```
+
+Next, add Nuget package `Microsoft.AspNetCore.Authorization` into your project.
+
+Finally, adjust the code to your wishes.
+
+Done! As you see, it's as easy as a pie.
