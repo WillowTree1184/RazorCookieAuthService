@@ -57,9 +57,9 @@ namespace PkusForum.CookieAuthService
         }
 
         /// <summary>
-        /// 删除授权cookie
+        /// Delete cookie
         /// </summary>
-        /// <returns>跳转至loginPageURL</returns>
+        /// <returns>Redirect to loginPageURL</returns>
         [Route("logout")]
         [HttpGet]
         public async Task<ActionResult> Logout()
