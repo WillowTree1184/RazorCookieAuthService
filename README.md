@@ -69,7 +69,7 @@ It's easy to deploy the AuthService, you just need to inject It to DI Containers
 public static void Initialize(string indexPageURL, string loginPageURL, KeyValuePair<string, string> queryWhenTimeOut, KeyValuePair<string, string> queryWhenTokenIdError)
 ```
 
-It's a bit compax to discribe them, so I wrote a summary about it, you can see it in [AuthController.cs](CookieAuthService/AuthController.cs). Here is a list about it:
+It's a bit hard to discribe them, so I wrote a summary about it, you can see it in [AuthController.cs](CookieAuthService/AuthController.cs). Here is a list about it:
 
 - indexPageURL: The url which will be redirected to when login successful
 - loginPageURL: The url which will be redirected to when login unsuccessful or logout successful
