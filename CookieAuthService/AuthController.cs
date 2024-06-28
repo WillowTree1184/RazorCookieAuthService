@@ -21,8 +21,8 @@ namespace CookieAuthService
         /// <summary>
         /// Initialize AuthController
         /// </summary>
-        /// <param name="indexPageURL">The url which will be redirect when login successful</param>
-        /// <param name="loginPageURL">The url which will be redirect when login unsuccessful or logout successful</param>
+        /// <param name="indexPageURL">The url which will be redirected to when login successful</param>
+        /// <param name="loginPageURL">The url which will be redirected to when login unsuccessful or logout successful</param>
         /// <param name="queryWhenTimeOut">The query which will been added when login time out</param>
         /// <param name="queryWhenTokenIdError">The query which will been added if the tokenId is unregisted when login</param>
         public static void Initialize(string indexPageURL, string loginPageURL, KeyValuePair<string, string> queryWhenTimeOut, KeyValuePair<string, string> queryWhenTokenIdError)
