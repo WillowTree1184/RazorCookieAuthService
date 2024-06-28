@@ -1,6 +1,10 @@
 # RazorCookieAuthService
 A namespace for razor to login, logout and get token which has been wrote in cookie.
 
+There was a little accident when I uploaded it. So if you notice a problem with the code, please let me know as soon as possible. Thank you very much!
+
+Don't worry about its security, I'm very concerned about it. I've updated its security and will continue to update it in the future.
+
 > [!IMPORTANT]
 > This namespace do not included login verification part, it just write the token into the cookie, so you have to develop the login verification part by yourself.
 
