@@ -13,7 +13,7 @@ First of all, add Nuget package `Microsoft.AspNetCore.Authorization` into your p
 
 Then, Copy the `CookieAuthService` floder into your project.
 
-Last, add these service to DI Containers, initialize the ChecksumService, AuthController and TokenDictionaryService, here is an example:
+Last, inject AuthService to DI Containers, initialize the ChecksumService, AuthController and TokenDictionaryService, here is an example:
 
 ``` c sharp
 //In Program.cs
@@ -27,18 +27,25 @@ AuthController.Initialize("/", "/login", new KeyValuePair<string, string>("error
 TokenDictionaryService.TokenRegisted += (token, tokenId) => Console.WriteLine($"{DateTime.Now} [TokenDictionaryService] Token {token} has been registed a corresponding tokenId {tokenId}");
 ```
 
-As you see, it's as easy as a pie.
+As you see, it's as easy as a pie. But, in order to make your deployment work, you also need to make some configuration to your project. Before that, let me tell you what happened.
 
 ### What happened?
-
-Now that you've simply deployed CookieAuthService. Now, I will tell you more details.
-
-There Are 3 services and a tool in CookieAuthService, there are:
+Now that you've simply deployed CookieAuthService. There Are 3 services and a tool in CookieAuthService, they are:
 
 - AuthService, inluded [IAuthService.cs](CookieAuthService/IAuthService.cs), [AuthService.cs](CookieAuthService/AuthService.cs) and [AuthController.cs](CookieAuthService/AuthController.cs).
-- ChecksumService, included [ChecksumService.cs](CookieAuthService/ChecksumService.cs)
-- TokenDictionaryService, included [TokenDictionaryService.cs](CookieAuthService/TokenDictionaryService.cs)
-- SHA256Calculator, included [SHA256Calculator.cs](CookieAuthService/SHA256Calculator.cs)
+- ChecksumService, included [ChecksumService.cs](CookieAuthService/ChecksumService.cs), a static class
+- TokenDictionaryService, included [TokenDictionaryService.cs](CookieAuthService/TokenDictionaryService.cs), a static class
+- SHA256Calculator, included [SHA256Calculator.cs](CookieAuthService/SHA256Calculator.cs), a static class
+
+It's easy to deploy the AuthService, you just need to inject It to DI Containers. AuthService depend on HttpContextAccessor, so you must inject it too.
+
+For ChecksumService, the checksum always update. but how often? I encapsulated a function called Initialize, The definition of this function is as follows:
+
+``` c sharp
+public static void Initialize(int updateInterval)
+```
+
+The `updateInterval` defined the interval between checksum updates, it is measured in milliseconds. A new Checksum will be generated in each update, a single checksum is valid twice as long as updateInterval.
 
 ## Configrue your project
 Add namespace to `_Imports.razor`
