@@ -45,7 +45,7 @@ For ChecksumService, the checksum always update. but how often? I encapsulated a
 public static void Initialize(int updateInterval)
 ```
 
-The `updateInterval` defined the interval between checksum updates, it is measured in milliseconds. A new Checksum will be generated in each update, a single checksum is valid twice as long as updateInterval.
+The `updateInterval` defined the interval between checksum updates, it is measured in milliseconds. A new Checksum will be generated in each update, a single checksum is valid twice as long as updateInterval. Each update also triggers an event called `ChecksumUpdated`, where the sender of this event is the previous checksum, and e is the new checksum. Both checksums are valid.
 
 ## Configrue your project
 Add namespace to `_Imports.razor`
