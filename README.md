@@ -1,5 +1,5 @@
 # RazorCookieAuthService
-A namespace for razor to login, logout and get token which has been wrote in cookie.
+A namespace for razor server to login, logout and get token which has been wrote in cookie.
 
 There was a little accident when I uploaded it. So if you notice a problem with the code, please let me know as soon as possible. Thank you very much!
 
@@ -28,6 +28,17 @@ TokenDictionaryService.TokenRegisted += (token, tokenId) => Console.WriteLine($"
 ```
 
 As you see, it's as easy as a pie.
+
+### What happened?
+
+Now that you've simply deployed CookieAuthService. Now, I will tell you more details.
+
+There Are 3 services and a tool in CookieAuthService, there are:
+
+- AuthService, inluded [IAuthService.cs](CookieAuthService/IAuthService.cs), [AuthService.cs](CookieAuthService/AuthService.cs) and [AuthController.cs](CookieAuthService/AuthController.cs).
+- ChecksumService, included [ChecksumService.cs](CookieAuthService/ChecksumService.cs)
+- TokenDictionaryService, included [TokenDictionaryService.cs](CookieAuthService/TokenDictionaryService.cs)
+- SHA256Calculator, included [SHA256Calculator.cs](CookieAuthService/SHA256Calculator.cs)
 
 ## Configrue your project
 Add namespace to `_Imports.razor`
