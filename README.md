@@ -141,14 +141,14 @@ Set attribute to your page which you want users can't browse without authenticat
 ```
 
 ## How to use?
-Inject `IAuthService`
+Inject `IAuthService` to add AuthService
 
 ``` c sharp
 //In your page
 @inject IAuthService authService
 ```
 
-Functions in interface `IAuthService`:
+Then, you can use the functions in interface `IAuthService`, they are:
 - `Task LoginAsync(string token)`: Login with the token. You can also serialize your structs or classes to JSON as token. The token will be written in the cookie.
 - `Task LogoutAsync()`: Logout. The cookie will be deleted.
 - `Task<string> GetTokenAsync()`: Get token if you already loggin. Or you can use `(await authenticationStateProvider.GetAuthenticationStateAsync()).User.FindFirst(c => c.Type == "token").Value;`.
