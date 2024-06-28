@@ -4,25 +4,21 @@ A namespace for razor to login, logout and get token which has been wrote in coo
 > [!IMPORTANT]
 > This namespace do not included login verification part, it just write the token into the cookie, so you have to develop the login verification part by yourself.
 
-## How to configure?
-First of all, add Nuget package `Microsoft.AspNetCore.Authorization` into your project.
+## Quickly deploy it to your project
+First of all, add Nuget package `Microsoft.AspNetCore.Authorization` into your project, our service depend on it.
 
-Next, add these service to DI Containers, initialize the Checksum service and configure the AuthController:
+Next, add these service to DI Containers, initialize the ChecksumService, AuthController and TokenDictionaryService, here is an example:
 
 ``` c sharp
 //In Program.cs
-//Add services to DI
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<AuthController>();
-
-//Initialize the Checksum service
-int checksumUpdateInterval = 60000;
-Checksum.Initialize(checksumUpdateInterval);
-
-//Configure the AuthController
-AuthController.loginPageURL = "/login";
+ChecksumService.ChecksumUpdated += (last, now) => Console.WriteLine($"{DateTime.Now} [ChecksumService] Updated! New checksum is {now}");
+ChecksumService.Initialize(60000);
+AuthController.Initialize("/", "/login", new KeyValuePair<string, string>("error", "登录超时"), new KeyValuePair<string, string>("error", "Token错误"));
+TokenDictionaryService.TokenRegisted += (token, tokenId) => Console.WriteLine($"{DateTime.Now} [TokenDictionaryService] Token {token} has been registed a corresponding tokenId {tokenId}");
 ```
 And...Done! As you see, it's as easy as a pie.
 
