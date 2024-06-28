@@ -7,7 +7,9 @@ A namespace for razor to login, logout and get token which has been wrote in coo
 ## Quickly deploy it to your project
 First of all, add Nuget package `Microsoft.AspNetCore.Authorization` into your project, our service depend on it.
 
-Next, add these service to DI Containers, initialize the ChecksumService, AuthController and TokenDictionaryService, here is an example:
+Then, Copy the `CookieAuthService` floder into your project.
+
+Last, add these service to DI Containers, initialize the ChecksumService, AuthController and TokenDictionaryService, here is an example:
 
 ``` c sharp
 //In Program.cs
@@ -20,7 +22,8 @@ ChecksumService.Initialize(60000);
 AuthController.Initialize("/", "/login", new KeyValuePair<string, string>("error", "登录超时"), new KeyValuePair<string, string>("error", "Token错误"));
 TokenDictionaryService.TokenRegisted += (token, tokenId) => Console.WriteLine($"{DateTime.Now} [TokenDictionaryService] Token {token} has been registed a corresponding tokenId {tokenId}");
 ```
-And...Done! As you see, it's as easy as a pie.
+
+As you see, it's as easy as a pie.
 
 ## Configrue your project
 Add namespace to `_Imports.razor`
