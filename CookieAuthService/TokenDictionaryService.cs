@@ -10,7 +10,7 @@ namespace CookieAuthService
         static Dictionary<string, string> tokenDictionary = new Dictionary<string, string>();  //Dictionary<tokenId, token>
 
         /// <summary>
-        /// Occurs when token has been registed just now
+        /// Occurs when token get registed
         /// </summary>
         public static event EventHandler<string>? TokenRegisted;
 
