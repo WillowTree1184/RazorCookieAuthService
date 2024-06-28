@@ -17,19 +17,45 @@ Last, inject AuthService to DI Containers, initialize the ChecksumService, AuthC
 
 ``` c sharp
 //In Program.cs
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+
+//Here
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<AuthController>();
-AuthController.Initialize("/", "/login", new KeyValuePair<string, string>("error", "登录超时"), new KeyValuePair<string, string>("error", "Token错误"));
 ChecksumService.ChecksumUpdated += (last, now) => Console.WriteLine($"{DateTime.Now} [ChecksumService] Updated! New checksum is {now}");
 ChecksumService.Initialize(60000);
+AuthController.Initialize("/", "/login", new KeyValuePair<string, string>("error", "登录超时"), new KeyValuePair<string, string>("error", "Token错误"));
 TokenDictionaryService.TokenRegisted += (token, tokenId) => Console.WriteLine($"{DateTime.Now} [TokenDictionaryService] Token {token} has been registed a corresponding tokenId {tokenId}");
+
+var app = builder.Build();
+
+// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+app.UseHsts();
+
+app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+
+app.UseRouting();
+app.MapControllers();
+
+app.MapBlazorHub();
+app.MapFallbackToPage("/_Host");
+
+//Here
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.Run();
 ```
 
-As you see, it's as easy as a pie. But, in order to make your deployment work, you also need to make some configuration to your project. Before that, let me tell you what happened.
+As you see, it's as easy as a pie. But, in order to make your deployment work, you also need to make some configuration to your project. But before that, let me touch on some of the details related to what we just did.
 
-### What happened?
+### Details
 Now that you've simply deployed CookieAuthService. There Are 3 services and a tool in CookieAuthService, they are:
 
 - AuthService, inluded [IAuthService.cs](CookieAuthService/IAuthService.cs), [AuthService.cs](CookieAuthService/AuthService.cs) and [AuthController.cs](CookieAuthService/AuthController.cs).
@@ -63,14 +89,17 @@ The `updateInterval` defined the interval between checksum updates, it is measur
 There nothing to deploy for TokenDictionaryService. But there are a event called TokenRegisted, it occurs when token get registed. The sender of it is the token, and e it the tokenId which corresponding to the token.
 
 ## Configrue your project
-Add namespace to `_Imports.razor`
+Use namespace in `_Imports.razor`
 
 ``` c sharp
 //In _Imports.razor
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authorization
 @using CookieAuthService
 ```
 
-Configure `app.razor` and create `JumpToLogin.razor`
+In order to redirect to the login page when the user is not logged in, configure `app.razor` and create `JumpToLogin.razor`
 
 ``` c sharp
 //In app.razor
@@ -98,7 +127,7 @@ Configure `app.razor` and create `JumpToLogin.razor`
 @code {
     protected override void OnAfterRender(bool firstRender)
     {
-        navigation.NavigateTo("/login");
+        navigation.NavigateTo("/login", false, true);
     }
 }
 
