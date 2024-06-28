@@ -21,9 +21,9 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<AuthController>();
+AuthController.Initialize("/", "/login", new KeyValuePair<string, string>("error", "登录超时"), new KeyValuePair<string, string>("error", "Token错误"));
 ChecksumService.ChecksumUpdated += (last, now) => Console.WriteLine($"{DateTime.Now} [ChecksumService] Updated! New checksum is {now}");
 ChecksumService.Initialize(60000);
-AuthController.Initialize("/", "/login", new KeyValuePair<string, string>("error", "登录超时"), new KeyValuePair<string, string>("error", "Token错误"));
 TokenDictionaryService.TokenRegisted += (token, tokenId) => Console.WriteLine($"{DateTime.Now} [TokenDictionaryService] Token {token} has been registed a corresponding tokenId {tokenId}");
 ```
 
@@ -37,9 +37,13 @@ Now that you've simply deployed CookieAuthService. There Are 3 services and a to
 - TokenDictionaryService, included [TokenDictionaryService.cs](CookieAuthService/TokenDictionaryService.cs), a static class
 - SHA256Calculator, included [SHA256Calculator.cs](CookieAuthService/SHA256Calculator.cs), a static class
 
-It's easy to deploy the AuthService, you just need to inject It to DI Containers. AuthService depend on HttpContextAccessor, so you must inject it too.
+It's easy to deploy the AuthService, you just need to inject It to DI Containers. AuthService depend on HttpContextAccessor, so you must inject it too. But you need to configure the AuthController. So I encapsulated a function called Initialize, The definition of this function is as follows:
 
-For ChecksumService, the checksum always update. but how often? I encapsulated a function called Initialize, The definition of this function is as follows:
+``` c sharp
+public static void Initialize(string indexPageURL, string loginPageURL, KeyValuePair<string, string> queryWhenTimeOut, KeyValuePair<string, string> queryWhenTokenIdError)
+```
+
+For ChecksumService, the checksum always update. but how often? I also encapsulated a function called Initialize, The definition of this function is as follows too:
 
 ``` c sharp
 public static void Initialize(int updateInterval)
