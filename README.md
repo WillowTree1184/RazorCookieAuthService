@@ -150,6 +150,6 @@ Inject `IAuthService` to add AuthService
 ```
 
 Then, you can use the functions in interface `IAuthService`, they are:
-- `void Login(string token)`: Login with the token. You can also serialize your structs or classes to JSON as token. The token will be written in the cookie.
-- `void Logout()`: Logout. The cookie will be deleted.
-- `Task<string> GetTokenAsync()`: Get token if you already loggin. Or you can use `(await authenticationStateProvider.GetAuthenticationStateAsync()).User.FindFirst(c => c.Type == "token").Value;`.
+- `void Login(string token)`: Login with the token. You can also serialize your structs or classes to JSON as token. And the token will be written in the cookie.
+- `void Logout()`: Logout. And the cookie will be deleted.
+- `Task<string?> GetTokenAsync();`: Get token if user already loggin.
