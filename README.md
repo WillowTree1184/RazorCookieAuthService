@@ -22,6 +22,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
 //Here
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<AuthController>();
