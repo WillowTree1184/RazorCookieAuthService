@@ -8,16 +8,12 @@ namespace CookieAuthService
     /// </summary>
     public class AuthService : IAuthService
     {
-        private readonly AuthController authController;
         private readonly NavigationManager navigationManager;
-        public readonly IHttpContextAccessor httpContextAccessor;
         public readonly AuthenticationStateProvider authenticationStateProvider;
 
-        public AuthService(AuthController authController, NavigationManager navigationManager, IHttpContextAccessor httpContextAccessor, AuthenticationStateProvider authenticationStateProvider)
+        public AuthService(NavigationManager navigationManager, AuthenticationStateProvider authenticationStateProvider)
         {
-            this.authController = authController;
             this.navigationManager = navigationManager;
-            this.httpContextAccessor = httpContextAccessor;
             this.authenticationStateProvider = authenticationStateProvider;
         }
 
