@@ -1,15 +1,15 @@
 # RazorCookieAuthService
-A namespace for razor server to login, logout and get token which has been wrote in cookie.
+A namespace for the Razor server to login, logout, and get the token written in the cookie.
 
-There was a little accident when I uploaded it. So if you notice a problem with the code, please let me know as soon as possible. Thank you very much!
+There was a small accident when I uploaded it. So if you find a problem with the code, please let me know as soon as possible. Thank you very much!
 
-Don't worry about security, I'm very concerned about it. I have updated it and will do it in the future.
+Don't worry about security, I'm very concerned about it. I have updated it and will continue to do so.
 
 > [!IMPORTANT]
-> This namespace do not included login verification part, the login funcion just write the token into the cookie. You must develop it by yourself.
+> This namespace does not include a login verification part, the login function just writes the token into the cookie. You have to develop this yourself.
 
 ## Quick Start
-First of all, add Nuget package `Microsoft.AspNetCore.Authorization` into your project, bacause AuthService depend on it.
+First, add the `Microsoft.AspNetCore.Authorization` nuget package to your project because the AuthService depends on it.
 
 Then, Copy the `CookieAuthService` floder into your project.
 
