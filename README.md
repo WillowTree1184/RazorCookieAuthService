@@ -9,7 +9,7 @@ Don't worry about security, I'm very concerned about it. I have updated it and w
 > This namespace does not include a login verification part, the login function just writes the token into the cookie. You have to develop this yourself.
 
 ## Quick Start
-First, add the `Microsoft.AspNetCore.Authorization` nuget package to your project because the AuthService depends on it.
+First, add nuget package  `Microsoft.AspNetCore.Authorization` to your project because the AuthService depends on it.
 
 Then, Copy the `CookieAuthService` floder into your project.
 
